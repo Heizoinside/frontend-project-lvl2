@@ -1,5 +1,5 @@
 {
-  "name": "nodejs-package",
+  "name": "project_lvl2_heizo",
   "version": "0.0.3",
   "description": "",
   "files": [
@@ -7,7 +7,7 @@
   ],
   "main": "index.js",
   "bin": {
-    "hexlet": "dist/bin/gendiff.js"
+    "gendiff": "dist/bin/gendiff.js"
   },
   "scripts": {
     "test": "jest",
@@ -18,7 +18,7 @@
     "type": "git",
     "url": "git+https://github.com/Heizoinside/frontend-project-lvl2"
   },
-  "author": "Kirill Mokevnin",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Heizoinside/frontend-project-lvl2"
@@ -32,20 +32,18 @@
     "lodash": "^4.17.15"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.3",
-    "@babel/core": "^7.8.3",
-    "@babel/node": "^7.8.3",
-    "@babel/plugin-proposal-pipeline-operator": "^7.8.3",
-    "@babel/preset-env": "^7.8.3",
+    "@babel/cli": "^7.7.7",
+    "@babel/core": "^7.7.7",
+    "@babel/node": "^7.7.7",
+    "@babel/plugin-proposal-pipeline-operator": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
     "babel-eslint": "^10.0.3",
-    "babel-jest": "^25.1.0",
-    "debug": "^4.1.1",
-    "eslint": "^6.8.0",
+    "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-babel": "^5.3.0",
-    "eslint-plugin-import": "^2.20.0",
-    "eslint-plugin-jest": "^23.6.0",
-    "jest": "^25.1.0",
-    "jest-cli": "^25.1.0"
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jest": "^23.3.0",
+    "jest": "^24.9.0",
+    "jest-cli": "^24.9.0"
   }
 }
