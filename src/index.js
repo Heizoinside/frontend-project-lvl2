@@ -52,6 +52,5 @@ export default (filepathBefore, filepathAfter) => {
     return acc;
   }, excludedBefore);
   const result = `{\n${diffOfJsons.join('\n')}\n}`;
-  console.log(result);
   return result;
 };
