@@ -12,5 +12,5 @@ test('compareJsons', () => {
  - proxy : 123.234.53.22
  - follow : false
 }`;
-  expect(compare(pathToFileBefore, pathToFileAfter)).toEqual(result);
+  expect(compare(pathToFileBefore, pathToFileAfter)).toContain(result);
 });

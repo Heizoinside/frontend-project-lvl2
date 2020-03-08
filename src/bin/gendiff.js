@@ -13,5 +13,3 @@ program
     console.log(result);
   });
 program.parse(process.argv);
-
-console.log('hello');
