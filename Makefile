@@ -4,6 +4,8 @@ test:
 	npm test
 testWatch:
 	npx jest --watch
+test-coverage:
+	npm test -- --coverage
 publish:
 	npm publish --dry-run
 start:
