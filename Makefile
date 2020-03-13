@@ -1,7 +1,9 @@
 install:
 	npm install
 test:
-	npx jest
+	npm test
+testWatch:
+	npx jest --watch
 publish:
 	npm publish --dry-run
 start:
