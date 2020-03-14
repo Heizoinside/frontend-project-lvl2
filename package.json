@@ -38,6 +38,7 @@
     "@babel/node": "^7.7.7",
     "@babel/plugin-proposal-pipeline-operator": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
+    "minimist": ">=1.2.2",
     "babel-eslint": "^10.0.3",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^14.0.0",
