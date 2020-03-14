@@ -2,7 +2,7 @@ import path from 'path';
 import compare from '../src';
 
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
-
+const formats = ['json', 'yaml'];
 const result = `{
    host: hexlet.io
  + timeout: 20
@@ -12,13 +12,8 @@ const result = `{
  + verbose: true
 }`;
 
-test('compareJsons', () => {
-  const jsonBefore = getFixturePath('before.json');
-  const jsonAfter = getFixturePath('after.json');
-  expect(compare(jsonBefore, jsonAfter)).toEqual(result);
-});
-test('compareYaml', () => {
-  const yamlBefore = getFixturePath('before.yaml');
-  const yamlAfter = getFixturePath('after.yaml');
-  expect(compare(yamlBefore, yamlAfter)).toEqual(result);
+test.each(formats)('compare', (ext) => {
+  const fileBefore = getFixturePath(`before.${ext}`);
+  const fileAfter = getFixturePath(`after.${ext}`);
+  expect(compare(fileBefore, fileAfter)).toEqual(result);
 });
