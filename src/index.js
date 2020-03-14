@@ -1,9 +1,11 @@
 import * as fs from 'fs';
 import _ from 'lodash';
 import path from 'path';
+import yaml from 'js-yaml';
 
 const mapping = {
   json: JSON.parse,
+  yaml: yaml.safeLoad,
 };
 
 const getType = (filepath) => path.extname(filepath).slice(1).toLowerCase().trim();

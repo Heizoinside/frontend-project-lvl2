@@ -1,12 +1,9 @@
 import path from 'path';
 import compare from '../src';
 
-const createFilePass = (filepath) => path.join(__dirname, '..', filepath);
+const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
-test('compareJsons', () => {
-  const pathToFileBefore = createFilePass('/__fixtures__/before.json');
-  const pathToFileAfter = createFilePass('/__fixtures__/after.json');
-  const result = `{
+const result = `{
    host: hexlet.io
  + timeout: 20
  - timeout: 50
@@ -14,5 +11,14 @@ test('compareJsons', () => {
  - follow: false
  + verbose: true
 }`;
-  expect(compare(pathToFileBefore, pathToFileAfter)).toEqual(result);
+
+test('compareJsons', () => {
+  const jsonBefore = getFixturePath('before.json');
+  const jsonAfter = getFixturePath('after.json');
+  expect(compare(jsonBefore, jsonAfter)).toEqual(result);
+});
+test('compareYaml', () => {
+  const yamlBefore = getFixturePath('before.yaml');
+  const yamlAfter = getFixturePath('after.yaml');
+  expect(compare(yamlBefore, yamlAfter)).toEqual(result);
 });
