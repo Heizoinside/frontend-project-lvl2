@@ -1,19 +1,14 @@
 import path from 'path';
+import fs from 'fs';
 import compare from '../src';
 
+const formats = ['json', 'yaml', 'ini'];
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
-const formats = ['json', 'yaml'];
-const result = `{
-   host: hexlet.io
- + timeout: 20
- - timeout: 50
- - proxy: 123.234.53.22
- - follow: false
- + verbose: true
-}`;
 
 test.each(formats)('compare', (ext) => {
+  const expected = fs.readFileSync(getFixturePath('result.txt'), 'utf-8');
   const fileBefore = getFixturePath(`before.${ext}`);
   const fileAfter = getFixturePath(`after.${ext}`);
-  expect(compare(fileBefore, fileAfter)).toEqual(result);
+  const result = compare(fileBefore, fileAfter);
+  expect(result).toBe(expected);
 });
