@@ -1,48 +1,74 @@
-import * as fs from 'fs';
 import _ from 'lodash';
-import path from 'path';
-import yaml from 'js-yaml';
-import ini from 'ini';
+import parse from './render';
 
-const mapping = {
-  json: JSON.parse,
-  yaml: yaml.safeLoad,
-  ini: ini.parse,
+const states = [
+  {
+    condition: (fileBefore, fileAfter, key) => _.has(fileBefore, key)
+      && _.has(fileAfter, key) && fileBefore[key] === fileAfter[key],
+    type: 'unchanged',
+    process: (fileBefore, fileAfter) => ({ before: fileBefore, after: fileAfter }),
+  },
+  {
+    condition: (fileBefore, fileAfter, key) => _.has(fileBefore, key)
+      && _.has(fileAfter, key)
+      && _.isObject(fileBefore[key]) && _.isObject(fileAfter[key]),
+    type: 'nested',
+    process: (fileBefore, fileAfter, func) => ({ children: func(fileBefore, fileAfter) }),
+  },
+  {
+    condition: (fileBefore, fileAfter, key) => _.has(fileBefore, key)
+      && _.has(fileAfter, key)
+      && fileBefore[key] !== fileAfter[key],
+    type: 'changed',
+    process: (fileBefore, fileAfter) => ({ before: fileBefore, after: fileAfter }),
+  },
+  {
+    condition: (fileBefore, fileAfter, key) => _.has(fileBefore, key)
+      && !_.has(fileAfter, key),
+    type: 'deleted',
+    process: (fileBefore) => ({ before: fileBefore }),
+  },
+  {
+    condition: (fileBefore, fileAfter, key) => _.has(fileAfter, key)
+      && !_.has(fileBefore, key),
+    type: 'added',
+    process: (fileBefore, fileAfter) => ({ after: fileAfter }),
+  },
+];
+const getStateAction = (fileBefore, fileAfter, key) => (
+  states.find(({ condition }) => condition(fileBefore, fileAfter, key))
+);
+
+const buildAst = (obj1, obj2) => {
+  const unionKeys = _.union(Object.keys(obj1), Object.keys(obj2));
+  return unionKeys.sort().map((key) => {
+    const { type, process } = getStateAction(obj1, obj2, key);
+    const values = process(obj1[key], obj2[key], buildAst);
+    const root = {
+      name: key,
+      type,
+      ...values,
+    };
+    return root;
+  });
 };
 
-const getType = (filepath) => path.extname(filepath).slice(1).toLowerCase().trim();
-
-const getFileContent = (filepath) => {
-  const currentDir = process.cwd();
-  const absolutePath = path.resolve(currentDir, filepath);
-  return fs.readFileSync(absolutePath, 'utf-8');
+const operators = {
+  unchanged: (node) => `  ${node.name}: ${node.before}`,
+  changed: (node) => `- ${node.name}: ${node.before} \n+ ${node.name}:${node.after}`,
+  added: (node) => `+ ${node.name}: ${node.after}`,
+  deleted: (node) => `- ${node.name}: ${node.before}`,
+  nested: (node, func) => ` ${node.name}:\n${func(node.children)}`,
 };
 
-const fileParse = (filepath) => {
-  const currentType = getType(filepath);
-  const currentContent = getFileContent(filepath);
-  return mapping[currentType](currentContent);
-};
+const render = (ast) => (
+  ast.map((el) => operators[el.type](el, render)).join('\n')
+);
 
 export default (filepath1, filepath2) => {
-  const fileBefore = fileParse(filepath1);
-  const fileAfter = fileParse(filepath2);
-  const unionKeys = _.union(Object.keys(fileBefore), Object.keys(fileAfter));
-  const diffArrs = unionKeys.reduce((acc, el) => {
-    if (_.has(fileBefore, el) && _.has(fileAfter, el)) {
-      if (fileBefore[el] === fileAfter[el]) {
-        return [...acc, `  ${el}: ${fileAfter[el]}`];
-      }
-      return [
-        ...acc,
-        [`+ ${[el]}: ${fileAfter[el]}`],
-        [`- ${[el]}: ${fileBefore[el]}`],
-      ];
-    }
-    if (_.has(fileBefore, el) && !_.has(fileAfter, el)) {
-      return [...acc, `- ${el}: ${fileBefore[el]}`];
-    }
-    return [...acc, `+ ${el}: ${fileAfter[el]}`];
-  }, []);
-  return diffArrs.join('\n');
+  const fileBefore = parse(filepath1);
+  const fileAfter = parse(filepath2);
+  const ast = buildAst(fileBefore, fileAfter);
+  console.log(render(ast));
+  return render(ast);
 };
