@@ -12,11 +12,3 @@ test.each(formats)('compare', (ext) => {
     const result = compare(fileBefore, fileAfter);
     expect(result).toBe(expected);
 });
-test('nested', () => {
-    const ext = 'json';
-    const fileBefore = getFixturePath(`tree-before.${ext}`);
-    const fileAfter = getFixturePath(`tree-after.${ext}`);
-    const expected = fs.readFileSync(getFixturePath('tree-result.txt'), 'utf-8');
-    const result = compare(fileBefore, fileAfter);
-    expect(result).toBe(expected);
-});

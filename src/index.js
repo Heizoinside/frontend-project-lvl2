@@ -88,6 +88,7 @@ export default (filepath1, filepath2) => {
     const fileBefore = parse(filepath1);
     const fileAfter = parse(filepath2);
     const ast = buildAst(fileBefore, fileAfter);
-    console.log(render(ast));
-    return render(ast);
+    const result = `{\n${render(ast)}\n}`;
+    console.log(result);
+    return result;
 };
