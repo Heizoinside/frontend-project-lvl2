@@ -27,8 +27,9 @@ const operations = {
     },
 };
 
-const render = (ast) => (
-    ast.map((el) => operations[el.type](el, 0, render)).join('\n')
-);
+const render = (ast) => {
+  const result = ast.map((el) => operations[el.type](el, 0, render)).join('\n');
+  return `{\n${result}\n}`;
+};
 
 export default render;
