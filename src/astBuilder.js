@@ -3,27 +3,27 @@ import _ from 'lodash';
 const states = [
     {
         condition: (fileBefore, fileAfter, key) => _.has(fileBefore, key)
-      && _.has(fileAfter, key) && fileBefore[key] === fileAfter[key],
-        type: 'unchanged',
-        process: (fileBefore, fileAfter) => ({ before: fileBefore, after: fileAfter }),
-    },
-    {
-        condition: (fileBefore, fileAfter, key) => _.has(fileBefore, key)
-      && _.has(fileAfter, key)
-      && _.isObject(fileBefore[key]) && _.isObject(fileAfter[key]),
+        && _.has(fileAfter, key)
+        && _.isObject(fileBefore[key]) && _.isObject(fileAfter[key]),
         type: 'nested',
         process: (fileBefore, fileAfter, func) => ({ children: func(fileBefore, fileAfter) }),
     },
     {
         condition: (fileBefore, fileAfter, key) => _.has(fileBefore, key)
-      && _.has(fileAfter, key)
-      && fileBefore[key] !== fileAfter[key],
+        && _.has(fileAfter, key) && fileBefore[key] === fileAfter[key],
+        type: 'unchanged',
+        process: (fileBefore, fileAfter) => ({ before: fileBefore, after: fileAfter }),
+    },
+    {
+        condition: (fileBefore, fileAfter, key) => _.has(fileBefore, key)
+        && _.has(fileAfter, key)
+        && fileBefore[key] !== fileAfter[key],
         type: 'changed',
         process: (fileBefore, fileAfter) => ({ before: fileBefore, after: fileAfter }),
     },
     {
         condition: (fileBefore, fileAfter, key) => _.has(fileBefore, key)
-      && !_.has(fileAfter, key),
+        && !_.has(fileAfter, key),
         type: 'deleted',
         process: (fileBefore) => ({ before: fileBefore }),
     },
