@@ -15,9 +15,9 @@ const states = [
         process: (fileBefore, fileAfter) => ({ before: fileBefore, after: fileAfter }),
     },
     {
-        condition: (fileBefore, fileAfter, key) => _.has(fileBefore, key)
-        && _.has(fileAfter, key)
-        && fileBefore[key] !== fileAfter[key],
+        condition: (fileBefore, fileAfter, key) => fileBefore[key] !== fileAfter[key]
+        && _.has(fileBefore, key)
+        && _.has(fileAfter, key),
         type: 'changed',
         process: (fileBefore, fileAfter) => ({ before: fileBefore, after: fileAfter }),
     },
