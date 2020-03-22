@@ -28,8 +28,8 @@ const operations = {
 };
 
 const render = (ast) => {
-  const result = ast.map((el) => operations[el.type](el, 0, render)).join('\n');
-  return `{\n${result}\n}`;
+    const result = ast.map((el) => operations[el.type](el, 0, render)).join('\n');
+    return `{\n${result}\n}`;
 };
 
 export default render;
