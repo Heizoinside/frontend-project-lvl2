@@ -7,6 +7,5 @@ export default (filepath1, filepath2) => {
     const fileAfter = parse(filepath2);
     const ast = buildAst(fileBefore, fileAfter);
     const result = render(ast);
-    console.log(result);
     return result;
 };
