@@ -9,6 +9,16 @@ test.each(formats)('compare', (ext) => {
     const expected = fs.readFileSync(getFixturePath('result.txt'), 'utf-8');
     const fileBefore = getFixturePath(`before.${ext}`);
     const fileAfter = getFixturePath(`after.${ext}`);
-    const result = compare(fileBefore, fileAfter);
+    const format = 'tree';
+    const result = compare(format, fileBefore, fileAfter);
+    expect(result).toBe(expected);
+});
+
+test.each(formats)('compare', (ext) => {
+    const expected = fs.readFileSync(getFixturePath('resultPlain.txt'), 'utf-8');
+    const fileBefore = getFixturePath(`before.${ext}`);
+    const fileAfter = getFixturePath(`after.${ext}`);
+    const format = 'plain';
+    const result = compare(format, fileBefore, fileAfter);
     expect(result).toBe(expected);
 });
