@@ -11,7 +11,7 @@ const getAbsolutePath = (filepath) => {
 program
     .version('0.0.3')
     .description('Compares two configuration files and shows a difference.')
-    .option('-f --format <type>', 'output format (tree, plain)')
+    .option('-f --format <type>', 'output format (tree, plain, json)')
     .arguments('<firstConfig> <secondConfig>')
     .action((firstConfig, secondConfig) => {
         const firstFile = getAbsolutePath(firstConfig);

@@ -9,6 +9,7 @@ const formats = [
     ['json', 'plain'],
     ['yaml', 'plain'],
     ['ini', 'plain'],
+    ['json', 'json'],
 ];
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
