@@ -1,5 +1,5 @@
 import parse from './parse';
-import buildAst from './astBuilder';
+import buildAst from './ast-builder';
 import render from './formatters';
 
 export default (format, filepath1, filepath2) => {
