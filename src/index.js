@@ -4,7 +4,6 @@ import render from './formatters';
 
 export default (format, filepath1, filepath2) => {
     const fileBefore = parse(filepath1);
-    console.log(format);
     const fileAfter = parse(filepath2);
     const ast = buildAst(fileBefore, fileAfter);
     return render(format, ast);
