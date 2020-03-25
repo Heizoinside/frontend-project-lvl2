@@ -29,7 +29,7 @@ const states = [
     },
     {
         condition: (fileBefore, fileAfter, key) => _.has(fileAfter, key)
-      && !_.has(fileBefore, key),
+        && !_.has(fileBefore, key),
         type: 'added',
         process: (fileBefore, fileAfter) => ({ after: fileAfter }),
     },

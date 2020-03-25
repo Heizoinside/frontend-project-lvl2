@@ -13,7 +13,7 @@ const formats = [
 ];
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
-test.each(formats)('compareTree', (ext, format) => {
+test.each(formats)('compare', (ext, format) => {
     const expected = fs.readFileSync(getFixturePath(`result-${format}.txt`), 'utf-8');
     const fileBefore = getFixturePath(`before.${ext}`);
     const fileAfter = getFixturePath(`after.${ext}`);
