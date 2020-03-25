@@ -9,13 +9,10 @@ const mapping = {
     ini: ini.parse,
 };
 
-const getType = (filepath) => path.extname(filepath).slice(1).toLowerCase().trim();
+const dotIndex = 1;
+const getType = (filepath) => path.extname(filepath).slice(dotIndex).toLowerCase().trim();
 
-const getFileContent = (filepath) => {
-    const currentDir = process.cwd();
-    const absolutePath = path.resolve(currentDir, filepath);
-    return fs.readFileSync(absolutePath, 'utf-8');
-};
+const getFileContent = (filepath) => fs.readFileSync(filepath, 'utf-8');
 
 export default (filepath) => {
     const currentType = getType(filepath);
