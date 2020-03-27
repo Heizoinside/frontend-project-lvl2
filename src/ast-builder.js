@@ -41,7 +41,7 @@ const getStateProcess = (fileBefore, fileAfter, key) => (
 const buildAst = (objBefore, objAfter) => {
     const unionKeys = _.union(Object.keys(objBefore), Object.keys(objAfter));
     return unionKeys.sort().map((key) => {
-        const { type, process } = getStateAction(objBefore, objAfter, key);
+        const { type, process } = getStateProcess(objBefore, objAfter, key);
         const values = process(objBefore[key], objAfter[key], buildAst);
         const node = {
             name: key,
