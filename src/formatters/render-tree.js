@@ -28,9 +28,9 @@ const treeOperations = {
     },
 };
 
-const treeRender = (ast) => {
-    const treeAst = ast.map((el) => treeOperations[el.type](el, spaceRepeatCount, treeRender)).join('\n');
+const renderTree = (ast) => {
+    const treeAst = ast.map((el) => treeOperations[el.type](el, spaceRepeatCount, renderTree)).join('\n');
     return `{\n${treeAst}\n}`;
 };
 
-export default treeRender;
+export default renderTree;
