@@ -13,11 +13,8 @@ const plainOperations = {
 };
 
 const plainRender = (ast) => {
-    const processedAst = ast.map((node) => {
-        const result = plainOperations[node.type](node, '', plainRender);
-        return result;
-    });
-    return _.flattenDeep(processedAst)
+    const plainAst = ast.map((node) => plainOperations[node.type](node, '', plainRender));
+    return _.flattenDeep(plainAst)
         .filter((el) => el !== null)
         .join('\n');
 };
