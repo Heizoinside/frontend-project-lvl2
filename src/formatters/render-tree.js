@@ -1,35 +1,36 @@
 import _ from 'lodash';
 
-const makeTab = (tabCount) => ' '.repeat(tabCount);
+const fillSpaces = (spacesCount) => ' '.repeat(spacesCount);
+const spaceRepeatCount = 0; 
 
-const stringify = (key, value, tab) => {
+const stringify = (key, value, spaces) => {
     if (!_.isObject(value)) {
-        return `${makeTab(tab)}${key}: ${value}`;
+        return `${fillSpaces(spaces)}${key}: ${value}`;
     }
     const innerContent = Object.keys(value).map((el) => (
-        stringify(el, value[el], tab + 5)
+        stringify(el, value[el], spaces + 5)
     ));
-    return `${makeTab(tab)}${key}: {\n${innerContent}\n${makeTab(tab + 2)}}`;
+    return `${fillSpaces(spaces)}${key}: {\n${innerContent}\n${fillSpaces(spaces + 2)}}`;
 };
 
 const operations = {
-    unchanged: (node, tab) => stringify(`  ${node.name}`, node.before, tab),
-    changed: (node, tab) => {
-        const conentBefore = stringify(`- ${node.name}`, node.before, tab);
-        const contentAfter = stringify(`+ ${node.name}`, node.after, tab);
+    unchanged: (node, spaces) => stringify(`  ${node.name}`, node.before, spaces),
+    changed: (node, spaces) => {
+        const conentBefore = stringify(`- ${node.name}`, node.before, spaces);
+        const contentAfter = stringify(`+ ${node.name}`, node.after, spaces);
         return `${conentBefore}\n${contentAfter}`;
     },
-    added: (node, tab) => stringify(`+ ${node.name}`, node.after, tab),
-    deleted: (node, tab) => stringify(`- ${node.name}`, node.before, tab),
-    nested: (node, tab, func) => {
-        const childsContent = node.children.map((el) => operations[el.type](el, tab + 3, func)).join('\n');
-        return `${makeTab(tab + 2)}${node.name}: {\n${childsContent}\n${makeTab(tab + 2)}}`;
+    added: (node, spaces) => stringify(`+ ${node.name}`, node.after, spaces),
+    deleted: (node, spaces) => stringify(`- ${node.name}`, node.before, spaces),
+    nested: (node, spaces, func) => {
+        const childsContent = node.children.map((el) => operations[el.type](el, spaces + 3, func)).join('\n');
+        return `${fillSpaces(spaces + 2)}${node.name}: {\n${childsContent}\n${fillSpaces(spaces + 2)}}`;
     },
 };
 
 const render = (ast) => {
-    const result = ast.map((el) => operations[el.type](el, 0, render)).join('\n');
-    return `{\n${result}\n}`;
+    const processedAst = ast.map((el) => operations[el.type](el, spaceRepeatCount, render)).join('\n');
+    return `{\n${processedAst}\n}`;
 };
 
 export default render;
