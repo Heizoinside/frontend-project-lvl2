@@ -28,9 +28,9 @@ const treeOperations = {
     },
 };
 
-const render = (ast) => {
-    const processedAst = ast.map((el) => treeOperations[el.type](el, spaceRepeatCount, render)).join('\n');
-    return `{\n${processedAst}\n}`;
+const treeRender = (ast) => {
+    const treeAst = ast.map((el) => treeOperations[el.type](el, spaceRepeatCount, treeRender)).join('\n');
+    return `{\n${treeAst}\n}`;
 };
 
 export default render;
