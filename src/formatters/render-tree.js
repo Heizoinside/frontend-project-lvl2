@@ -33,4 +33,4 @@ const treeRender = (ast) => {
     return `{\n${treeAst}\n}`;
 };
 
-export default render;
+export default treeRender;
