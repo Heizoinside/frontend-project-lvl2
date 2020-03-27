@@ -34,21 +34,21 @@ const states = [
         process: (fileBefore, fileAfter) => ({ after: fileAfter }),
     },
 ];
-const getStateAction = (fileBefore, fileAfter, key) => (
+const getStateProcess = (fileBefore, fileAfter, key) => (
     states.find(({ condition }) => condition(fileBefore, fileAfter, key))
 );
 
-const buildAst = (obj1, obj2) => {
-    const unionKeys = _.union(Object.keys(obj1), Object.keys(obj2));
+const buildAst = (objBefore, objAfter) => {
+    const unionKeys = _.union(Object.keys(objBefore), Object.keys(objAfter));
     return unionKeys.sort().map((key) => {
-        const { type, process } = getStateAction(obj1, obj2, key);
-        const values = process(obj1[key], obj2[key], buildAst);
-        const root = {
+        const { type, process } = getStateAction(objBefore, objAfter, key);
+        const values = process(objBefore[key], objAfter[key], buildAst);
+        const node = {
             name: key,
             type,
             ...values,
         };
-        return root;
+        return node;
     });
 };
 
