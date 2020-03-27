@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 const fillSpaces = (spacesCount) => ' '.repeat(spacesCount);
-const spaceRepeatCount = 0; 
+const spaceRepeatCount = 0;
 
 const stringify = (key, value, spaces) => {
     if (!_.isObject(value)) {
