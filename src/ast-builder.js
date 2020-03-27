@@ -12,26 +12,26 @@ const states = [
         condition: (fileBefore, fileAfter, key) => _.has(fileBefore, key)
         && _.has(fileAfter, key) && fileBefore[key] === fileAfter[key],
         type: 'unchanged',
-        process: (fileBefore, fileAfter) => ({ before: fileBefore, after: fileAfter }),
+        process: (fileBefore, fileAfter) => ({ valueBefore: fileBefore, valueAfter: fileAfter }),
     },
     {
         condition: (fileBefore, fileAfter, key) => fileBefore[key] !== fileAfter[key]
         && _.has(fileBefore, key)
         && _.has(fileAfter, key),
         type: 'changed',
-        process: (fileBefore, fileAfter) => ({ before: fileBefore, after: fileAfter }),
+        process: (fileBefore, fileAfter) => ({ valueBefore: fileBefore, valueAfter: fileAfter }),
     },
     {
         condition: (fileBefore, fileAfter, key) => _.has(fileBefore, key)
         && !_.has(fileAfter, key),
         type: 'deleted',
-        process: (fileBefore) => ({ before: fileBefore }),
+        process: (fileBefore) => ({ valueBefore: fileBefore }),
     },
     {
         condition: (fileBefore, fileAfter, key) => _.has(fileAfter, key)
         && !_.has(fileBefore, key),
         type: 'added',
-        process: (fileBefore, fileAfter) => ({ after: fileAfter }),
+        process: (fileBefore, fileAfter) => ({ valueAfter: fileAfter }),
     },
 ];
 const getStateProcess = (fileBefore, fileAfter, key) => (
