@@ -2,9 +2,9 @@ import parse from './parse';
 import buildAst from './ast-builder';
 import render from './formatters';
 
-export default (format, filepath1, filepath2) => {
-    const fileBefore = parse(filepath1);
-    const fileAfter = parse(filepath2);
-    const ast = buildAst(fileBefore, fileAfter);
+export default (format, filepathBefore, filepathAfter) => {
+    const contentBefore = parse(filepathBefore);
+    const contentAfter = parse(filepathAfter);
+    const ast = buildAst(contentBefore, contentAfter);
     return render(format, ast);
 };
