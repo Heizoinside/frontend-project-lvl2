@@ -14,14 +14,14 @@ const stringify = (key, value, spaces) => {
 };
 
 const operations = {
-    unchanged: (node, spaces) => stringify(`  ${node.name}`, node.before, spaces),
+    unchanged: (node, spaces) => stringify(`  ${node.name}`, node.valueBefore, spaces),
     changed: (node, spaces) => {
-        const conentBefore = stringify(`- ${node.name}`, node.before, spaces);
-        const contentAfter = stringify(`+ ${node.name}`, node.after, spaces);
+        const conentBefore = stringify(`- ${node.name}`, node.valueBefore, spaces);
+        const contentAfter = stringify(`+ ${node.name}`, node.valueAfter, spaces);
         return `${conentBefore}\n${contentAfter}`;
     },
-    added: (node, spaces) => stringify(`+ ${node.name}`, node.after, spaces),
-    deleted: (node, spaces) => stringify(`- ${node.name}`, node.before, spaces),
+    added: (node, spaces) => stringify(`+ ${node.name}`, node.valueAfter, spaces),
+    deleted: (node, spaces) => stringify(`- ${node.name}`, node.valueBefore, spaces),
     nested: (node, spaces, func) => {
         const childsContent = node.children.map((el) => operations[el.type](el, spaces + 3, func)).join('\n');
         return `${fillSpaces(spaces + 2)}${node.name}: {\n${childsContent}\n${fillSpaces(spaces + 2)}}`;
