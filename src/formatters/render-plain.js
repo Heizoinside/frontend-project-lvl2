@@ -12,11 +12,11 @@ const plainOperations = {
     },
 };
 
-const plainRender = (ast) => {
-    const plainAst = ast.map((node) => plainOperations[node.type](node, '', plainRender));
+const renderPlain = (ast) => {
+    const plainAst = ast.map((node) => plainOperations[node.type](node, '', renderPlain));
     return _.flattenDeep(plainAst)
         .filter((el) => el !== null)
         .join('\n');
 };
 
-export default plainRender;
+export default renderPlain;
