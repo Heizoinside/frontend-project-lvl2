@@ -4,7 +4,7 @@ import yaml from 'js-yaml';
 import ini from 'ini';
 
 const dotIndex = 1;
-const getExtension  = (filepath) => path.extname(filepath).slice(dotIndex).toLowerCase().trim();
+const getExtension = (filepath) => path.extname(filepath).slice(dotIndex).toLowerCase().trim();
 const getFileContent = (filepath) => fs.readFileSync(filepath, 'utf-8');
 
 const mapping = {
