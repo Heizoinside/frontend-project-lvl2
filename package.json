@@ -1,7 +1,7 @@
 {
-  "name": "project_lvl2_heizo",
-  "version": "0.0.3",
-  "description": "",
+  "name": "heizo-gendiff",
+  "version": "0.0.4",
+  "description": "Hexlet project, gendDiff, compare two files",
   "files": [
     "dist"
   ],
@@ -18,7 +18,7 @@
     "type": "git",
     "url": "git+https://github.com/Heizoinside/frontend-project-lvl2"
   },
-  "author": "",
+  "author": "Filipp Kotov",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Heizoinside/frontend-project-lvl2/issues"
