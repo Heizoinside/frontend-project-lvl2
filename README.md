@@ -12,7 +12,7 @@
 
 [![asciicast](https://asciinema.org/a/tbrks71kdsMtyJtFtPumZ4QpB.svg)](https://asciinema.org/a/tbrks71kdsMtyJtFtPumZ4QpB)
 
-# How to use with default output:
+# How to use with default tree output:
 
 [![asciicast](https://asciinema.org/a/t1WtKAmkz1mhhW0GaAIkuWpBa.svg)](https://asciinema.org/a/t1WtKAmkz1mhhW0GaAIkuWpBa)
 
