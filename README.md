@@ -14,7 +14,7 @@
 
 # How to use with default tree output:
 
-[![asciicast](https://asciinema.org/a/t1WtKAmkz1mhhW0GaAIkuWpBa.svg)](https://asciinema.org/a/t1WtKAmkz1mhhW0GaAIkuWpBa)
+[![asciicast](https://asciinema.org/a/ZlD1vpgMXJt7P5ZgkzgDFwcwm.svg)](https://asciinema.org/a/ZlD1vpgMXJt7P5ZgkzgDFwcwm)
 
 # How to use with plain output:
 
