@@ -2,40 +2,40 @@ import _ from 'lodash';
 
 const states = [
   {
-    condition: (fileBefore, fileAfter, key) => _.has(fileBefore, key)
-        && _.has(fileAfter, key)
-        && _.isObject(fileBefore[key]) && _.isObject(fileAfter[key]),
+    condition: (dataBefore, dataAfter, key) => _.has(dataBefore, key)
+        && _.has(dataAfter, key)
+        && _.isObject(dataBefore[key]) && _.isObject(dataAfter[key]),
     type: 'nested',
-    process: (fileBefore, fileAfter, func) => ({ children: func(fileBefore, fileAfter) }),
+    process: (dataBefore, dataAfter, func) => ({ children: func(dataBefore, dataAfter) }),
   },
   {
-    condition: (fileBefore, fileAfter, key) => _.has(fileBefore, key)
-        && _.has(fileAfter, key) && fileBefore[key] === fileAfter[key],
+    condition: (dataBefore, dataAfter, key) => _.has(dataBefore, key)
+        && _.has(dataAfter, key) && dataBefore[key] === dataAfter[key],
     type: 'unchanged',
-    process: (fileBefore, fileAfter) => ({ valueBefore: fileBefore, valueAfter: fileAfter }),
+    process: (dataBefore, dataAfter) => ({ valueBefore: dataBefore, valueAfter: dataAfter }),
   },
   {
-    condition: (fileBefore, fileAfter, key) => fileBefore[key] !== fileAfter[key]
-        && _.has(fileBefore, key)
-        && _.has(fileAfter, key),
+    condition: (dataBefore, dataAfter, key) => dataBefore[key] !== dataAfter[key]
+        && _.has(dataBefore, key)
+        && _.has(dataAfter, key),
     type: 'changed',
-    process: (fileBefore, fileAfter) => ({ valueBefore: fileBefore, valueAfter: fileAfter }),
+    process: (dataBefore, dataAfter) => ({ valueBefore: dataBefore, valueAfter: dataAfter }),
   },
   {
-    condition: (fileBefore, fileAfter, key) => _.has(fileBefore, key)
-        && !_.has(fileAfter, key),
+    condition: (dataBefore, dataAfter, key) => _.has(dataBefore, key)
+        && !_.has(dataAfter, key),
     type: 'deleted',
-    process: (fileBefore) => ({ valueBefore: fileBefore }),
+    process: (dataBefore) => ({ valueBefore: dataBefore }),
   },
   {
-    condition: (fileBefore, fileAfter, key) => _.has(fileAfter, key)
-        && !_.has(fileBefore, key),
+    condition: (dataBefore, dataAfter, key) => _.has(dataAfter, key)
+        && !_.has(dataBefore, key),
     type: 'added',
-    process: (fileBefore, fileAfter) => ({ valueAfter: fileAfter }),
+    process: (dataBefore, dataAfter) => ({ valueAfter: dataAfter }),
   },
 ];
-const getStateProcess = (fileBefore, fileAfter, key) => (
-  states.find(({ condition }) => condition(fileBefore, fileAfter, key))
+const getStateProcess = (dataBefore, dataAfter, key) => (
+  states.find(({ condition }) => condition(dataBefore, dataAfter, key))
 );
 
 const buildAst = (objBefore, objAfter) => {
