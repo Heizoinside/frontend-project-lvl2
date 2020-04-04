@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const getValueContent = (value) => (_.isObject(value) ? ['[complex value]'] : value);
+const getValueContent = (value) => (_.isObject(value) ? '[complex value]' : value);
 const plainOperations = {
   unchanged: () => null,
   changed: (node, filepath) => `Property ${filepath}${node.name} was changed from ${node.valueBefore} to ${getValueContent(node.valueAfter)}`,
