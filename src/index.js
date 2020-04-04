@@ -17,9 +17,6 @@ const getFileContent = (filepath) => fs.readFileSync(filepath, 'utf-8');
 export default (outputFormat = 'tree', filepathBefore, filepathAfter) => {
   const extensionBefore = getExtension(filepathBefore);
   const extensionAfter = getExtension(filepathAfter);
-  if (extensionBefore !== extensionAfter) {
-    throw new Error('Input formats must be the same');
-  }
   const fileBefore = getFileContent(filepathBefore);
   const fileAfter = getFileContent(filepathAfter);
   const parsedContentBefore = parse(extensionBefore, fileBefore);
