@@ -21,6 +21,6 @@ export default (outputFormat = 'tree', filepathBefore, filepathAfter) => {
   const fileAfter = getFileContent(filepathAfter);
   const parsedContentBefore = parse(extensionBefore, fileBefore);
   const parsedContentAfter = parse(extensionAfter, fileAfter);
-  const ast = buildAst(parsedContentBefore, parsedContentAfter);
-  return render(outputFormat, ast);
+  const diffNodes = buildAst(parsedContentBefore, parsedContentAfter);
+  return render(outputFormat, diffNodes);
 };
