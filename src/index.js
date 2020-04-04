@@ -9,8 +9,7 @@ const getExtension = (filepath) => {
   return path
     .extname(filepath)
     .slice(dotIndex)
-    .toLowerCase()
-    .trim();
+    .toLowerCase();
 };
 
 const getFileContent = (filepath) => fs.readFileSync(filepath, 'utf-8');
