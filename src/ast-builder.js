@@ -1,13 +1,7 @@
+
 import _ from 'lodash';
 
 const states = [
-  {
-    condition: (dataBefore, dataAfter, key) => _.has(dataBefore, key)
-        && _.has(dataAfter, key)
-        && _.isObject(dataBefore[key]) && _.isObject(dataAfter[key]),
-    type: 'nested',
-    process: (dataBefore, dataAfter, func) => ({ children: func(dataBefore, dataAfter) }),
-  },
   {
     condition: (dataBefore, dataAfter, key) => _.has(dataBefore, key)
         && _.has(dataAfter, key) && dataBefore[key] === dataAfter[key],
@@ -15,11 +9,10 @@ const states = [
     process: (dataBefore, dataAfter) => ({ valueBefore: dataBefore, valueAfter: dataAfter }),
   },
   {
-    condition: (dataBefore, dataAfter, key) => dataBefore[key] !== dataAfter[key]
-        && _.has(dataBefore, key)
-        && _.has(dataAfter, key),
-    type: 'changed',
-    process: (dataBefore, dataAfter) => ({ valueBefore: dataBefore, valueAfter: dataAfter }),
+    condition: (dataBefore, dataAfter, key) => _.isObject(dataBefore[key])
+      && _.isObject(dataAfter[key]),
+    type: 'nested',
+    process: (dataBefore, dataAfter, func) => ({ children: func(dataBefore, dataAfter) }),
   },
   {
     condition: (dataBefore, dataAfter, key) => _.has(dataBefore, key)
@@ -32,6 +25,11 @@ const states = [
         && !_.has(dataBefore, key),
     type: 'added',
     process: (dataBefore, dataAfter) => ({ valueAfter: dataAfter }),
+  },
+  {
+    condition: (dataBefore, dataAfter, key) => dataBefore[key] !== dataAfter[key],
+    type: 'changed',
+    process: (dataBefore, dataAfter) => ({ valueBefore: dataBefore, valueAfter: dataAfter }),
   },
 ];
 const getStateProcess = (dataBefore, dataAfter, key) => (

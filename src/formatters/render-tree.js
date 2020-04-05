@@ -22,15 +22,16 @@ const treeOperations = {
   added: (node, spaces) => stringify(`+ ${node.name}`, node.valueAfter, spaces),
   deleted: (node, spaces) => stringify(`- ${node.name}`, node.valueBefore, spaces),
   nested: (node, spaces, func) => {
-    const childsContent = node.children.map((el) => treeOperations[el.type](el, spaces + 4, func)).join('\n');
+    const childsContent = func(node.children, spaces + 4);
     return `${fillSpaces(spaces + 2)}${node.name}: {\n${childsContent}\n${fillSpaces(spaces + 2)}}`;
   },
 };
 
-const renderTree = (ast) => {
+export default (ast) => {
   const spaceRepeatCount = 2;
-  const treeAst = ast.map((el) => treeOperations[el.type](el, spaceRepeatCount, renderTree)).join('\n');
+  const iter = (tree, spaces) => (
+    tree.map((el) => treeOperations[el.type](el, spaces, iter)).join('\n')
+  );
+  const treeAst = iter(ast, spaceRepeatCount);
   return `{\n${treeAst}\n}`;
 };
-
-export default renderTree;
